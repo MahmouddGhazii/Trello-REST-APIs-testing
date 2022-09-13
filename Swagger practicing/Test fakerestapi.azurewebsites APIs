@@ -1,0 +1,41 @@
+ API: GET /api​/v1​/Authors
+ Test Case: Get the authors data successfully with response code "200 OK"
+ Expected Result: 200 OK
+ Actual Result: 200 OK
+ Status: Pass
+------------------------------------ 
+ API: POST /api​/v1​/Authors
+ Test Case: Register a new valid Author successfully and response code "201 Created"
+ Expected Result: 201 Created
+ Actual Result: 200 OK
+ Status: Fail
+ 
+ API: POST /api​/v1​/Authors
+ Test Case: firstname & lastname should be mandatory
+ Expected Result: The request should fail and the response code should be 400 if firstname is missed
+ Actual Result: 200 OK
+ Status: Fail
+------------------------------------
+ API: GET /api/v1/Authors/authors/books/{idBook}
+ Test Case: Searching with valid idBook should return relative data in response body
+ Expected Result: All returned results in response body should contain idBook
+ Actual Result: All returned results in response body contains idBook
+ Status: Pass
+------------------------------------
+ API: PUT /api/v1/Authors/{id}
+ Test Case: Author's data is updated successfully
+ Expected Result: Author's data in response is updated successfully.
+ Actual Result: Author's data in response is updated successfully
+ Status: Pass
+------------------------------------
+ API: GET /api/v1/Authors/{id}
+ Test Case: The author's data is changed in GET request after being updated in PUT request
+ Expected Result: Author's data in response is the new updated.
+ Actual Result: Author's data in response is the old data.
+ Status: Fail
+------------------------------------
+ API: DELETE /api​/v1​/Authors​/{id}
+ Test Case: The author's data is removed in DELETE request
+ Expected Result: 200 OK
+ Actual Result: 200 OK
+ Status: Pass
