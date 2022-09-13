@@ -1,0 +1,353 @@
+{
+	"info": {
+		"_postman_id": "4bce8789-be1e-4708-8a62-fa195e416a00",
+		"name": "Test TRELLO REST APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23151056"
+	},
+	"item": [
+		{
+			"name": "Create new Board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Verify that the permission level is set to private\", function () {\r",
+							"    pm.expect(jsonData.prefs.permissionLevel).to.equal(\"private\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that Can be public is set to true\", function () {\r",
+							"    pm.expect(jsonData.prefs.canBePublic).to.equal(true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that Can Invite is set to true\", function () {\r",
+							"    pm.expect(jsonData.prefs.canInvite).to.equal(true);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"ID\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/1/boards/?name={{Name}}&key={{Key}}&token={{Token}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{Name}}"
+						},
+						{
+							"key": "key",
+							"value": "{{Key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Number of boards",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var boardsCount = jsonData.boards.length;\r",
+							"let lastID = boardsCount - 1;\r",
+							"\r",
+							"pm.test(\"The number of boards is more than ONE\", function () {\r",
+							"    pm.expect(boardsCount).to.be.greaterThan(1);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"FirstBoardID\", jsonData.boards[0].id);\r",
+							"pm.environment.set(\"LastBoardID\", jsonData.boards[lastID].id);\r",
+							"\r",
+							"console.log(pm.environment.get(\"FirstBoardID\"));\r",
+							"console.log(pm.environment.get(\"LastBoardID\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/1/members/me?boards=open&key={{Key}}&token={{Token}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"1",
+						"members",
+						"me"
+					],
+					"query": [
+						{
+							"key": "boards",
+							"value": "open"
+						},
+						{
+							"key": "key",
+							"value": "{{Key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get lists on a Board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var ListCount = jsonData.length;\r",
+							"let lastID = ListCount - 1;\r",
+							"\r",
+							"pm.test(\"Number of lists in the response is 3\", function () {\r",
+							"    pm.expect(pm.response.json().length).to.equal(3);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"FirstListID\", jsonData[0].id);\r",
+							"pm.environment.set(\"LastListID\", jsonData[lastID].id);\r",
+							"\r",
+							"console.log(pm.environment.get(\"FirstListID\"));\r",
+							"console.log(pm.environment.get(\"LastListID\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/1/boards/{{ID}}/lists?key={{Key}}&token={{Token}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{ID}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{Key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"tests['Key \"id\" is existsing in the response body'] = _.has(jsonData,\"id\");\r",
+							"tests['Key \"name\" is existsing in the response body'] = _.has(jsonData,\"name\");\r",
+							"tests['Key \"idBoard\" is existsing in the response body'] = _.has(jsonData,\"idBoard\");\r",
+							"\r",
+							"pm.test(\"Verify that the closed parameter is set to false\", function () {\r",
+							"    pm.expect(pm.response.json().closed).to.equal(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that limit are empty object\", function () {\r",
+							"    pm.expect(pm.response.json().limits).to.be.empty;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/1/lists?name={{Name}}&idBoard={{ID}}&key={{Key}}&token={{Token}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"1",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{Name}}"
+						},
+						{
+							"key": "idBoard",
+							"value": "{{ID}}"
+						},
+						{
+							"key": "key",
+							"value": "{{Key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Archive or un-archive a list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"In Response Body, 'closed' is true if the value=true (in the query parameter) and vice versa\", function () {\r",
+							"\r",
+							"    if(pm.request.url.getQueryString().includes(\"value=true\")){\r",
+							"        \r",
+							"        pm.expect(jsonData.closed).to.equal(true);\r",
+							"\r",
+							"    }else if(pm.request.url.getQueryString().includes(\"value=false\")){\r",
+							"\r",
+							"        pm.expect(jsonData.closed).to.equal(false);\r",
+							"    }\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Headers include a key called 'Set-Cookie' and its value contains the text 'isEnterpriseAdmin%3Dfalse'\", function () {\r",
+							"\r",
+							"    pm.response.headers.has(\"Set-Cookie\",\"isEnterpriseAdmin%3Dfalse\");\r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/1/lists/{{LastListID}}/closed?value={{value}}&key={{Key}}&token={{Token}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"1",
+						"lists",
+						"{{LastListID}}",
+						"closed"
+					],
+					"query": [
+						{
+							"key": "value",
+							"value": "{{value}}"
+						},
+						{
+							"key": "key",
+							"value": "{{Key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body should contain 'Board is deleted successfully'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Board is deleted successfully\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/1/boards/{{ID}}?key={{Key}}&token={{Token}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{Key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,258 @@
+{
+	"id": "1ff69d1f-fea4-44cf-8339-b1ac09ab9b1c",
+	"name": "Test TRELLO REST APIs",
+	"timestamp": "2022-09-13T06:57:26.146Z",
+	"collection_id": "23151056-4bce8789-be1e-4708-8a62-fa195e416a00",
+	"folder_id": 0,
+	"environment_id": "23151056-2fd27167-6f16-4f8d-b5d2-0e1b6c32e2c6",
+	"totalPass": 14,
+	"totalFail": 1,
+	"results": [
+		{
+			"id": "94f59074-8206-43ba-a8b6-12b20c6418bf",
+			"name": "Create new Board",
+			"url": "https://api.trello.com/1/boards/?name=New&key=a5e514ba2ad8e37cb37e477e64ccc3ae&token=80b202102f015767a8c1423b44ff03646a964098b4ad25d9cde78e67bb21a043",
+			"time": 814,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Verify that the permission level is set to private": true,
+				"Verify that Can be public is set to true": true,
+				"Verify that Can Invite is set to true": true
+			},
+			"testPassFailCounts": {
+				"Verify that the permission level is set to private": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verify that Can be public is set to true": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verify that Can Invite is set to true": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				814
+			],
+			"allTests": [
+				{
+					"Verify that the permission level is set to private": true,
+					"Verify that Can be public is set to true": true,
+					"Verify that Can Invite is set to true": true
+				}
+			]
+		},
+		{
+			"id": "365e434a-cb2f-4f61-b343-26ea651977ad",
+			"name": "Number of boards",
+			"url": "https://api.trello.com/1/members/me?boards=open&key=a5e514ba2ad8e37cb37e477e64ccc3ae&token=80b202102f015767a8c1423b44ff03646a964098b4ad25d9cde78e67bb21a043",
+			"time": 243,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"The number of boards is more than ONE": true
+			},
+			"testPassFailCounts": {
+				"The number of boards is more than ONE": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				243
+			],
+			"allTests": [
+				{
+					"The number of boards is more than ONE": true
+				}
+			]
+		},
+		{
+			"id": "fdc28344-a5f3-4468-8505-930cc94aa3ab",
+			"name": "Get lists on a Board",
+			"url": "https://api.trello.com/1/boards/632029ca88aeaf00e84d3ac4/lists?key=a5e514ba2ad8e37cb37e477e64ccc3ae&token=80b202102f015767a8c1423b44ff03646a964098b4ad25d9cde78e67bb21a043",
+			"time": 227,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Number of lists in the response is 3": true
+			},
+			"testPassFailCounts": {
+				"Number of lists in the response is 3": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				227
+			],
+			"allTests": [
+				{
+					"Number of lists in the response is 3": true
+				}
+			]
+		},
+		{
+			"id": "9ac7dae0-a86f-43d0-8d03-1665ac7b2b1d",
+			"name": "Create a List",
+			"url": "https://api.trello.com/1/lists?name=New&idBoard=632029ca88aeaf00e84d3ac4&key=a5e514ba2ad8e37cb37e477e64ccc3ae&token=80b202102f015767a8c1423b44ff03646a964098b4ad25d9cde78e67bb21a043",
+			"time": 503,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Verify that the closed parameter is set to false": true,
+				"Verify that limit are empty object": true,
+				"Key \"id\" is existsing in the response body": true,
+				"Key \"name\" is existsing in the response body": true,
+				"Key \"idBoard\" is existsing in the response body": true
+			},
+			"testPassFailCounts": {
+				"Verify that the closed parameter is set to false": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verify that limit are empty object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Key \"id\" is existsing in the response body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Key \"name\" is existsing in the response body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Key \"idBoard\" is existsing in the response body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				503
+			],
+			"allTests": [
+				{
+					"Verify that the closed parameter is set to false": true,
+					"Verify that limit are empty object": true,
+					"Key \"id\" is existsing in the response body": true,
+					"Key \"name\" is existsing in the response body": true,
+					"Key \"idBoard\" is existsing in the response body": true
+				}
+			]
+		},
+		{
+			"id": "77b02e62-c152-4735-bfc1-2253fcee843b",
+			"name": "Archive or un-archive a list",
+			"url": "https://api.trello.com/1/lists/632029ca88aeaf00e84d3acd/closed?value=false&key=a5e514ba2ad8e37cb37e477e64ccc3ae&token=80b202102f015767a8c1423b44ff03646a964098b4ad25d9cde78e67bb21a043",
+			"time": 256,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"In Response Body, 'closed' is true if the value=true (in the query parameter) and vice versa": true,
+				"Response Headers include a key called 'Set-Cookie' and its value contains the text 'isEnterpriseAdmin%3Dfalse'": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"In Response Body, 'closed' is true if the value=true (in the query parameter) and vice versa": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response Headers include a key called 'Set-Cookie' and its value contains the text 'isEnterpriseAdmin%3Dfalse'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				256
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"In Response Body, 'closed' is true if the value=true (in the query parameter) and vice versa": true,
+					"Response Headers include a key called 'Set-Cookie' and its value contains the text 'isEnterpriseAdmin%3Dfalse'": true
+				}
+			]
+		},
+		{
+			"id": "1f5dc971-bd97-4888-ac92-3112db91e355",
+			"name": "Delete Board",
+			"url": "https://api.trello.com/1/boards/632029ca88aeaf00e84d3ac4?key=a5e514ba2ad8e37cb37e477e64ccc3ae&token=80b202102f015767a8c1423b44ff03646a964098b4ad25d9cde78e67bb21a043",
+			"time": 597,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response body should contain 'Board is deleted successfully'": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body should contain 'Board is deleted successfully'": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				597
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response body should contain 'Board is deleted successfully'": false
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 2640,
+	"collection": {
+		"requests": [
+			{
+				"id": "94f59074-8206-43ba-a8b6-12b20c6418bf",
+				"method": "POST"
+			},
+			{
+				"id": "365e434a-cb2f-4f61-b343-26ea651977ad",
+				"method": "GET"
+			},
+			{
+				"id": "fdc28344-a5f3-4468-8505-930cc94aa3ab",
+				"method": "GET"
+			},
+			{
+				"id": "9ac7dae0-a86f-43d0-8d03-1665ac7b2b1d",
+				"method": "POST"
+			},
+			{
+				"id": "77b02e62-c152-4735-bfc1-2253fcee843b",
+				"method": "PUT"
+			},
+			{
+				"id": "1f5dc971-bd97-4888-ac92-3112db91e355",
+				"method": "DELETE"
+			}
+		]
+	}
+}
